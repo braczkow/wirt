@@ -30,7 +30,7 @@ internal class WillItRainUseCaseTest {
     }
 
     @Test
-    fun execute_todayNoRainAtAll_NoRainReturned() = runBlockingTest {
+    fun today_noRainAtAll_NoRainReturned() = runBlockingTest {
         //arrange
         coEvery {
             openWeatherApi.getOneCallByLatLon(any(), any(), any())
@@ -46,7 +46,7 @@ internal class WillItRainUseCaseTest {
     }
 
     @Test
-    fun execute_todayCurrentRain_IsRainingReturned() = runBlockingTest {
+    fun today_currentRain_IsRainingReturned() = runBlockingTest {
         //arrange
         coEvery {
             openWeatherApi.getOneCallByLatLon(any(), any(), any())
@@ -62,7 +62,7 @@ internal class WillItRainUseCaseTest {
     }
 
     @Test
-    fun execute_todayRainInAnHour_WilRainReturned() = runBlockingTest {
+    fun today_RainInAnHour_WilRainReturned() = runBlockingTest {
         //arrange
         coEvery {
             openWeatherApi.getOneCallByLatLon(any(), any(), any())
@@ -78,7 +78,7 @@ internal class WillItRainUseCaseTest {
     }
 
     @Test
-    fun execute_todayRainIn40Hours_NoRainReturned() = runBlockingTest {
+    fun today_RainIn40Hours_NoRainReturned() = runBlockingTest {
         //arrange
         coEvery {
             openWeatherApi.getOneCallByLatLon(any(), any(), any())
@@ -123,6 +123,22 @@ internal class WillItRainUseCaseTest {
         )
 
         assertThat(result).isEqualTo(WillItRainUseCase.Result.WillRain)
+    }
+
+    @Test
+    fun hours_currentRain_IsRainingReturned() = runBlockingTest {
+        //arrange
+        coEvery {
+            openWeatherApi.getOneCallByLatLon(any(), any(), any())
+        } returns OpenWeatherOneCallResponses.currentRainNullHourly
+
+        //act
+        val result = UT.execute(
+            WillItRainUseCase.LocationDescriptor.LatLon("12", "23"),
+            WillItRainUseCase.TimeRangeDescriptor.Hours(4)
+        )
+
+        assertThat(result).isEqualTo(WillItRainUseCase.Result.IsRaining)
     }
 
 }
