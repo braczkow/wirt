@@ -1,4 +1,4 @@
-package com.braczkow.wirt
+package com.braczkow.lib
 
 import java.time.*
 

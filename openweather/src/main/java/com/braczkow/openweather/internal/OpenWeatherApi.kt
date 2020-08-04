@@ -7,7 +7,6 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
-import timber.log.Timber
 
 interface OpenWeatherApi {
     class Builder(
@@ -18,7 +17,7 @@ interface OpenWeatherApi {
 
             httpClient.addInterceptor(
                 HttpLoggingInterceptor(
-                    HttpLoggingInterceptor.Logger { message -> Timber.d(message) }
+                    HttpLoggingInterceptor.Logger { message -> System.out.println(message) }
                 ).setLevel(HttpLoggingInterceptor.Level.BODY))
 
             httpClient.addInterceptor { chain ->

@@ -1,9 +1,9 @@
 package com.braczkow.wirt.openweather
 
-import com.braczkow.wirt.Timee
+import com.braczkow.lib.Timee
 import com.braczkow.wirt.openweather.internal.OpenWeatherApi
 import com.braczkow.wirt.openweather.internal.OpenWeatherOneCallResponse
-import timber.log.Timber
+
 import java.time.LocalDateTime
 import java.time.ZoneOffset
 
@@ -46,7 +46,6 @@ class WillItRainUseCase(
         timeRangeDescriptor: TimeRangeDescriptor
     ): Result {
         if (locationDescriptor !is LocationDescriptor.LatLon) {
-            Timber.d("Unsupported")
             return Result.Error
         }
 
@@ -57,8 +56,6 @@ class WillItRainUseCase(
                 "daily"
             )
 
-            Timber.d("Got response: $resp")
-
             return when(timeRangeDescriptor) {
                 is TimeRangeDescriptor.Today -> processToday(resp)
                 is TimeRangeDescriptor.Hours -> processHours(resp, timeRangeDescriptor)
@@ -67,7 +64,6 @@ class WillItRainUseCase(
 
 
         } catch (e: Exception) {
-            Timber.d("Failed to getOneCall: $e")
             return Result.Error
         }
     }

@@ -1,7 +1,8 @@
-package com.braczkow.wirt.openweather
+package com.braczkow.openweather
 
 
-import com.braczkow.wirt.Timee
+import com.braczkow.lib.Timee
+import com.braczkow.wirt.openweather.WillItRainUseCase
 import com.braczkow.wirt.openweather.internal.OpenWeatherApi
 import com.braczkow.wirt.testdata.OpenWeatherOneCallResponses
 import io.mockk.coEvery
@@ -20,13 +21,13 @@ internal class WillItRainUseCaseTest {
 
     @Before
     fun setup() {
-        Timee.fix(OpenWeatherOneCallResponses.NOW)
+        com.braczkow.lib.Timee.fix(OpenWeatherOneCallResponses.NOW)
         UT = WillItRainUseCase(openWeatherApi)
     }
 
     @After
     fun tearDown() {
-        Timee.unfix()
+        com.braczkow.lib.Timee.unfix()
     }
 
     @Test

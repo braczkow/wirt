@@ -1,4 +1,4 @@
-package com.braczkow.wirt
+package com.braczkow.openweather
 
 import org.junit.Test
 
