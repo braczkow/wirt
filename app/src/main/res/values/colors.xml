@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#3700B3</color>
-    <color name="colorAccent">#03DAC5</color>
+    <color name="colorPrimary">@color/palette_blue</color>
+    <color name="colorPrimaryDark">@color/palette_darkblue</color>
+    <color name="colorAccent">@color/palette_lightblue</color>
+
+    <color name="default_grey">#e4e3e3</color>
+    <color name="default_green">#84a9ac</color>
+    <color name="default_lightblue">#3b6978</color>
+    <color name="default_darkblue">#204051</color>
+
+    <color name="palette_blue">#5D88BB</color>
+    <color name="palette_darkblue">#102336</color>
+    <color name="palette_lightblue">#B3CBE4</color>
+    <color name="palette_grey">#D6D6D6</color>
+    <color name="palette_darkgrey">#A1A8B2</color>
+
 </resources>
