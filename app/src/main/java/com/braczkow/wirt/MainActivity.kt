@@ -6,10 +6,11 @@ import androidx.lifecycle.lifecycleScope
 import com.braczkow.wirt.openweather.internal.OpenWeatherApi
 import com.braczkow.wirt.openweather.WillItRainUseCase
 import com.ncapdevi.fragnav.FragNavController
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-    val appId = "ccbab75d0272f13370167dd604890713"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
