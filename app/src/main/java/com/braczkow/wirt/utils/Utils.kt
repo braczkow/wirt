@@ -1,11 +1,19 @@
 package com.braczkow.wirt.utils
 
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 
-fun Lifecycle.tillStopScope(): CoroutineScope {
+fun Fragment.startStopScope(): CoroutineScope {
+    return this
+        .viewLifecycleOwner
+        .lifecycle
+        .startStopScope()
+}
+
+fun Lifecycle.startStopScope(): CoroutineScope {
     val job = Job()
     this.addObserver(object : LifecycleObserver {
         @OnLifecycleEvent(Lifecycle.Event.ON_STOP)

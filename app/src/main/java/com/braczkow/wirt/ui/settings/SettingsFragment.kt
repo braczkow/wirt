@@ -1,10 +1,11 @@
-package com.braczkow.wirt
+package com.braczkow.wirt.ui.settings
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.braczkow.wirt.R
 
 class SettingsFragment : Fragment() {
 
