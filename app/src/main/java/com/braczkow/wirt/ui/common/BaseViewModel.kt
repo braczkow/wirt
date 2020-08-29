@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 abstract class BaseViewModel<T> : ViewModel() {
     private val navigationHost = NavigationHost<T>()
 
-    fun navigate(direction: T) {
+    protected fun navigate(direction: T) {
         with(navigationHost) {
             viewModelScope.navigate(direction)
         }
