@@ -1,0 +1,46 @@
+Dude, will it rain today? (also: WIRT)
+
+A simple App that answers a difficult questions in a configurable* manner.
+
+WIRT serves a playground Application to practice and demonstrate some Android/Kotlin/architecture
+concepts.
+
+Notabene:
+#1 It's a multi-module project. ATM, the split is "horizontal":
+- lib is the "base" module, any other module is allowed to depend on it
+- app module is allowed to depend on anything
+- "feature" modules (like openweather, cities*) may not depend on the "app" (or "ui"*) module
+- whether particular "feature" modules might depend on each other is not determined yet
+(I assume that for such a small project it's possible)
+- Note that the app/ui module is meant to be split "horizontally", so that no screen depends on each
+other
+
+#2 WIRT is targeted to be Kotlin/flow based, with the goal to replace Rx BehaviorSubject with
+Kotlin StateFlow. It's experimental, but so is this App
+
+#3 There is some nice base Navigation implemented (see app.ui.common); please note that I strongly
+support the idea that view state(model) is something different than view-like actions. The former is
+meant to be standardized with a StateFlow-based solution* For the latter,
+following approach applies:
+- Navigation interface which exposes _directions_ flow (to be consumed by a Fragment)
+- Navigator interface which exposes _navigate_ fun (to be used internally by a ViewModel)
+- NavigationHost, which is a generic class that implements the 2 former interfaces
+- BaseViewModel, which internally uses NavigationHost, but only exposes
+-- protected navigate() fun to be used by ViewModels
+-- public _directions_ flow to be used by Fragments
+
+The most important part is that NavigationHost implements the _directions_ flow as an
+UNLIMITED fan-out channel. This way, ViewModel can post as many directions as it wants, while a
+Fragment would consume them when it collects (typically between _onStart_ and _onStop_). Once
+collected direction is never re-emitted, so the problem that both BehaviorSubject and LiveData have
+(google for SingleLiveEvent) is never there! :)
+
+#4 WIRT is designed to provide a simple UI for settings, and virtually no UI for everyday use.
+Badge actions, Toasts and notifications: you are my only hope!*
+
+TODOs:
+- all the *
+
+
+
+* - TODO :)
