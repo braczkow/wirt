@@ -2,7 +2,7 @@ Dude, will it rain today? (also: WIRT)
 
 A simple App that answers *the* question in a configurable* manner.
 
-WIRT serves a playground Application to practice and demonstrate some Android/Kotlin/architecture
+WIRT serves as a playground Application to practice and demonstrate some Android/Kotlin/architecture
 concepts.
 
 Notabene:
@@ -40,7 +40,3 @@ Badge actions, Toasts and notifications: you are my only hope!*
 
 TODOs:
 - all the *
-
-
-
-* - TODO :)
