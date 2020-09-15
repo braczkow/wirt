@@ -1,7 +1,7 @@
 package com.braczkow.wirt.core
 
-import com.braczkow.wirt.openweather.WillItRainUseCase
-import com.braczkow.wirt.openweather.internal.OpenWeatherApi
+import com.braczkow.openweatherr.WillItRainUseCase
+import com.braczkow.openweatherr.internal.OpenWeatherApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

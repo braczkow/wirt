@@ -3,7 +3,7 @@ package com.braczkow.wirt.ui.location
 import android.Manifest
 import android.content.Context
 import androidx.hilt.lifecycle.ViewModelInject
-import com.braczkow.wirt.openweather.WillItRainUseCase
+import com.braczkow.openweatherr.WillItRainUseCase
 import com.braczkow.wirt.ui.common.BaseViewModel
 import com.braczkow.wirt.ui.common.PermissionResult
 import com.braczkow.wirt.utils.isLocationPermission

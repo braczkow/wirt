@@ -1,3 +1,4 @@
+include ':openweatherr'
 include ':location'
 include ':lib'
 include ':openweather'
