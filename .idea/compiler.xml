@@ -4,6 +4,7 @@
     <bytecodeTargetLevel>
       <module name="lib" target="1.7" />
       <module name="lib2" target="1.7" />
+      <module name="location" target="1.7" />
       <module name="openweather" target="1.7" />
     </bytecodeTargetLevel>
   </component>

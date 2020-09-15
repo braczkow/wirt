@@ -1,10 +1,12 @@
 package com.braczkow.wirt.utils
 
+import android.Manifest
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+
 
 fun Fragment.startStopScope(): CoroutineScope {
     return this
@@ -32,3 +34,7 @@ fun <T> LiveData<T>.observe(owner: LifecycleOwner, l: (item: T)->Unit) {
         }
     })
 }
+
+fun isLocationPermission(permission: String): Boolean =
+    (permission == Manifest.permission.ACCESS_FINE_LOCATION ||
+            permission == Manifest.permission.ACCESS_COARSE_LOCATION)

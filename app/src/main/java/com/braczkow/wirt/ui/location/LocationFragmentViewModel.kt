@@ -1,9 +1,12 @@
 package com.braczkow.wirt.ui.location
 
+import android.Manifest
 import android.content.Context
 import androidx.hilt.lifecycle.ViewModelInject
 import com.braczkow.wirt.openweather.WillItRainUseCase
 import com.braczkow.wirt.ui.common.BaseViewModel
+import com.braczkow.wirt.ui.common.PermissionResult
+import com.braczkow.wirt.utils.isLocationPermission
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
@@ -12,8 +15,10 @@ import timber.log.Timber
 
 sealed class LocationFragmentDirections {
     object MoveToSettings : LocationFragmentDirections()
-    object Debug: LocationFragmentDirections()
+    data class ProceedWithPermission(val permission: String)
 }
+
+
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class LocationFragmentViewModel @ViewModelInject constructor(
@@ -21,8 +26,16 @@ class LocationFragmentViewModel @ViewModelInject constructor(
     private val willItRainUseCase: WillItRainUseCase
 ) : BaseViewModel<LocationFragmentDirections>() {
 
+    override fun withPermissionResult(permissionResult: PermissionResult) {
+        super.withPermissionResult(permissionResult)
+
+        if (isLocationPermission(permissionResult.permission) && permissionResult is PermissionResult.Granted) {
+//            determineLocation()
+        }
+    }
+
     fun onUseLocationButtonClicked() {
-        navigate(LocationFragmentDirections.MoveToSettings)
+
     }
 
     fun onLocationNameChanged(s: String) {
