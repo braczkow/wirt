@@ -3,6 +3,7 @@ package com.braczkow.wirt.ui
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.braczkow.wirt.R
+import com.braczkow.wirt.ui.common.BaseFragment
 import com.braczkow.wirt.ui.location.LocationFragment
 import com.braczkow.wirt.ui.settings.SettingsFragment
 import com.ncapdevi.fragnav.FragNavController

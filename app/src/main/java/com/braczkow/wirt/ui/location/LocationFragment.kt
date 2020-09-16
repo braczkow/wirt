@@ -1,5 +1,7 @@
 package com.braczkow.wirt.ui.location
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +10,7 @@ import android.widget.AutoCompleteTextView
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import com.braczkow.wirt.ui.common.BaseFragment
+import com.braczkow.wirt.ui.common.PermissionResult
 import com.braczkow.wirt.utils.startStopScope
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_location.view.*
@@ -59,6 +62,10 @@ class LocationFragment : BaseFragment() {
         }
     }
 
+    override fun onPermissionsResult(permissionResults: List<PermissionResult>) {
+        viewModel.withPermissionsResult(permissionResults)
+    }
+
     override fun onStart() {
         super.onStart()
 
@@ -86,6 +93,9 @@ class LocationFragment : BaseFragment() {
                         when (it) {
                             is LocationFragmentDirections.MoveToSettings -> {
                                 requireFragmentNavigation().setSettingsScreen()
+                            }
+                            is PermissionRequest -> {
+                                requestPermissions(it.permissions)
                             }
                         }
                     }

@@ -15,7 +15,7 @@ abstract class BaseViewModel<T> : ViewModel() {
 
     val directions: Flow<T> = navigationHost.directions
 
-    open fun withPermissionResult(permissionResult: PermissionResult) {
+    open fun withPermissionsResult(permissionResults: List<PermissionResult>) {
 
     }
 }
