@@ -3,6 +3,7 @@ package com.braczkow.wirt.ui.location
 import android.Manifest
 import android.content.Context
 import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.viewModelScope
 import com.braczkow.location.LocationApi
 import com.braczkow.openweatherr.WillItRainUseCase
 import com.braczkow.wirt.ui.common.BaseViewModel
@@ -12,6 +13,9 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 interface PermissionRequest {
@@ -35,6 +39,19 @@ class LocationFragmentViewModel @ViewModelInject constructor(
 ) : BaseViewModel<LocationFragmentDirections>() {
 
     private val locationRequest = locationApi.makeLocationRequest()
+    init {
+        viewModelScope
+            .launch {
+                locationApi
+                    .locations
+                    .collect {
+                        if (it != LocationApi.NONE_LOCATION) {
+                            locationRequest.stop()
+                            navigate(LocationFragmentDirections.MoveToSettings)
+                        }
+                    }
+            }
+    }
 
     fun onUseLocationButtonClicked() {
         navigate(LocationFragmentDirections.ProceedWithPermission(Manifest.permission.ACCESS_FINE_LOCATION))

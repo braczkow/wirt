@@ -7,6 +7,10 @@ import android.os.Looper
 import androidx.core.content.ContextCompat
 import com.braczkow.lib.Logg
 import com.google.android.gms.location.*
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.filter
 
 interface LocationApi {
     interface HighAccuracyRequest {
@@ -15,30 +19,43 @@ interface LocationApi {
     }
 
     data class Location(
-        val lat: Float,
-        val long: Float,
+        val lat: Double,
+        val long: Double,
         val accuracy: Float
     )
 
     fun makeLocationRequest(): HighAccuracyRequest
+
+
+
+    val locations: Flow<Location>
+
+    companion object {
+        val NONE_LOCATION : Location = Location(0.0, 0.0, 0f)
+    }
 }
 
 class LocationApiImpl(
     private val context: Context
 ) : LocationApi {
 
-    private val client: FusedLocationProviderClient
+    private val client: FusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(context)
+    @OptIn(ExperimentalCoroutinesApi::class)
     private val locationCallback: LocationCallback = object : LocationCallback() {
-        override fun onLocationResult(p0: LocationResult?) {
-
+        override fun onLocationResult(locationResult: LocationResult?) {
+            if (locationResult != null) {
+                val ll = locationResult.lastLocation
+                (locations as MutableStateFlow).value = LocationApi.Location(ll.latitude, ll.longitude, ll.accuracy)
+            }
         }
     }
 
     private val requests = mutableSetOf<LocationRequest>()
 
-    init {
-        client = LocationServices.getFusedLocationProviderClient(context)
-    }
+    @OptIn(ExperimentalCoroutinesApi::class)
+    override val locations: Flow<LocationApi.Location> = MutableStateFlow<LocationApi.Location>(
+        LocationApi.NONE_LOCATION
+    )
 
     override fun makeLocationRequest(): LocationApi.HighAccuracyRequest {
 
